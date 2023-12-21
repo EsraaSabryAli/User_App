@@ -6,12 +6,13 @@ import 'package:url_launcher/url_launcher.dart';
 void main() {
   runApp(Ss());
 }
-   
-class Ss extends StatelessWidget {
-  final data ;
 
-  const Ss({super.key, this.data});
-  void launchWhatsapp({@required number, @required message}) async {
+class Ss extends StatelessWidget {
+  final Map<String, dynamic> data;
+
+  const Ss({Key? key, this.data = const {}}) : super(key: key);
+
+  void launchWhatsapp({@required number , @required message }) async {
     String whatsAppURL = "whatsapp://send?+2001211406202";
     launchUrl(Uri.parse(whatsAppURL));
   }
@@ -22,6 +23,14 @@ class Ss extends StatelessWidget {
       await launch(url);
     } else {
       throw 'Could not launch $url';
+    }
+  }
+
+  void launchUrl(Uri uri) async {
+    if (await canLaunch(uri.toString())) {
+      await launch(uri.toString());
+    } else {
+      throw 'Could not launch $uri';
     }
   }
 
@@ -116,32 +125,32 @@ class Ss extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 19),
-                // Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //     children: [
-                //       InkWell(
-                //         onTap: () {
-                //           launchWhatsapp();
-                //         },
-                //         child: Image.asset(
-                //           'images/image/test1.jpg',
-                //           height: 70,
-                //           width: 70,
-                //         ),
-                //       ),
-                //         InkWell(
-                //         onTap: () {
-                //         launchPhoneDialer("+201211406202");
-                //         },
-                //         child: Image.asset(
-                //           'images/image/44.jpg',
-                //           height: 50,
-                //           width: 50,
-                //         ),
-                //       ),
-                     
-                //     ])
-              ], // close the Column children list here
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        launchWhatsapp();
+                      },
+                      child: Image.asset(
+                        'Assets/1671c09a32f98796ede36fabfab4dee7.jpg',
+                        height: 70,
+                        width: 70,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        launchPhoneDialer("+201211406202");
+                      },
+                      child: Image.asset(
+                        'Assets/44.jpg',
+                        height: 50,
+                        width: 50,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
@@ -149,3 +158,4 @@ class Ss extends StatelessWidget {
     );
   }
 }
+
